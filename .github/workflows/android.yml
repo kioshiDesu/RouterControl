@@ -31,10 +31,14 @@ jobs:
             touch .env
           fi
 
-      - name: Restore Debug Keystore
+      - name: Restore or Generate Debug Keystore
         run: |
           if [ -f debug.keystore.base64 ]; then
+            echo "Restoring keystore from base64..."
             base64 -d debug.keystore.base64 > debug.keystore
+          else
+            echo "No base64 keystore found. Generating a new debug keystore..."
+            keytool -genkey -v -keystore debug.keystore -storepass android -alias androiddebugkey -keypass android -keyalg RSA -keysize 2048 -validity 10000 -dname "CN=Android Debug,O=Android,C=US"
           fi
 
       - name: Set up Gradle 9.3.1
