@@ -79,7 +79,7 @@ class RouterViewModel(
         username: String,
         isDemo: Boolean,
         routerModel: String = "hAP Lite (v6)",
-        connectionType: String = "SSH",
+        connectionType: String = "L2TP Tunnel",
         l2tpSecret: String = ""
     ) {
         viewModelScope.launch {

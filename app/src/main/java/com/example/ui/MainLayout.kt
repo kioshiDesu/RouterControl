@@ -10,10 +10,12 @@ import androidx.compose.material.icons.filled.Dashboard
 import androidx.compose.material.icons.filled.ReceiptLong
 import androidx.compose.material.icons.filled.Router
 import androidx.compose.material.icons.filled.Terminal
+import androidx.compose.material.icons.filled.Help
 import androidx.compose.material.icons.outlined.Dashboard
 import androidx.compose.material.icons.outlined.ReceiptLong
 import androidx.compose.material.icons.outlined.Router
 import androidx.compose.material.icons.outlined.Terminal
+import androidx.compose.material.icons.outlined.Help
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -29,6 +31,7 @@ import com.example.ui.screens.DashboardScreen
 import com.example.ui.screens.DevicesScreen
 import com.example.ui.screens.LogsScreen
 import com.example.ui.screens.TerminalScreen
+import com.example.ui.screens.DeploymentScreen
 import com.example.ui.theme.SuccessGreen
 import com.example.ui.theme.DangerRed
 import com.example.ui.theme.WarningYellow
@@ -197,6 +200,19 @@ fun MainLayout(
                     label = { Text("Logs") },
                     modifier = Modifier.testTag("tab_logs")
                 )
+
+                NavigationBarItem(
+                    selected = activeTab == 4,
+                    onClick = { activeTab = 4 },
+                    icon = {
+                        Icon(
+                            imageVector = if (activeTab == 4) Icons.Filled.Help else Icons.Outlined.Help,
+                            contentDescription = "Deployment Help"
+                        )
+                    },
+                    label = { Text("Deployment") },
+                    modifier = Modifier.testTag("tab_deployment")
+                )
             }
         },
         modifier = modifier
@@ -211,6 +227,7 @@ fun MainLayout(
                 1 -> DevicesScreen(viewModel = viewModel)
                 2 -> TerminalScreen(viewModel = viewModel)
                 3 -> LogsScreen(viewModel = viewModel)
+                4 -> DeploymentScreen()
             }
         }
     }

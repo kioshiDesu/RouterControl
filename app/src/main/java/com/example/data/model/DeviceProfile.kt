@@ -14,6 +14,6 @@ data class DeviceProfile(
     val lastConnected: String? = null,
     val isDemo: Boolean = false,
     val routerModel: String = "hAP Lite (v6)",
-    val connectionType: String = "SSH",
+    val connectionType: String = "L2TP Tunnel",
     val l2tpSecret: String = ""
 )

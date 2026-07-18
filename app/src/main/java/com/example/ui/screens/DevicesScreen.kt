@@ -18,6 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.data.model.DeviceProfile
 import com.example.ui.ConnectionStatus
@@ -43,7 +44,7 @@ fun DevicesScreen(
     var username by remember { mutableStateOf("") }
     var isDemo by remember { mutableStateOf(false) }
     var routerModel by remember { mutableStateOf("hAP Lite (v6)") }
-    var connectionType by remember { mutableStateOf("SSH") }
+    var connectionType by remember { mutableStateOf("L2TP Tunnel") }
     var l2tpSecret by remember { mutableStateOf("") }
 
     // State for password entry dialog
@@ -78,7 +79,7 @@ fun DevicesScreen(
                                 username = ""
                                 isDemo = false
                                 routerModel = "hAP Lite (v6)"
-                                connectionType = "SSH"
+                                connectionType = "L2TP Tunnel"
                                 l2tpSecret = ""
                             } else {
                                 showAddForm = true
@@ -206,51 +207,39 @@ fun DevicesScreen(
                             }
 
                             Text("Connection Type", style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.primary)
-                            Row(
-                                horizontalArrangement = Arrangement.spacedBy(8.dp),
-                                modifier = Modifier.fillMaxWidth()
+                            Card(
+                                modifier = Modifier.fillMaxWidth(),
+                                colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
+                                border = androidx.compose.foundation.BorderStroke(1.dp, MaterialTheme.colorScheme.outline)
                             ) {
-                                listOf("SSH", "L2TP Tunnel").forEach { type ->
-                                    val isSelected = connectionType == type
-                                    Box(
-                                        modifier = Modifier
-                                            .weight(1f)
-                                            .background(
-                                                if (isSelected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.surface,
-                                                shape = androidx.compose.foundation.shape.RoundedCornerShape(8.dp)
-                                            )
-                                            .border(
-                                                width = 1.dp,
-                                                color = if (isSelected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.outline,
-                                                shape = androidx.compose.foundation.shape.RoundedCornerShape(8.dp)
-                                            )
-                                            .clickable { connectionType = type }
-                                            .padding(vertical = 10.dp),
-                                        contentAlignment = Alignment.Center
-                                    ) {
-                                        Text(
-                                            text = type,
-                                            color = if (isSelected) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onSurface,
-                                            style = MaterialTheme.typography.bodyMedium,
-                                            fontWeight = if (isSelected) androidx.compose.ui.text.font.FontWeight.Bold else androidx.compose.ui.text.font.FontWeight.Normal
-                                        )
+                                Row(
+                                    modifier = Modifier.padding(12.dp).fillMaxWidth(),
+                                    verticalAlignment = Alignment.CenterVertically,
+                                    horizontalArrangement = Arrangement.spacedBy(8.dp)
+                                ) {
+                                    Icon(
+                                        imageVector = Icons.Default.Lock,
+                                        contentDescription = null,
+                                        tint = MaterialTheme.colorScheme.primary
+                                    )
+                                    Column {
+                                        Text("L2TP VPN Tunnel", fontWeight = FontWeight.Bold, style = MaterialTheme.typography.bodyMedium)
+                                        Text("Connects securely via remote L2TP Tunnel gateway", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
                                     }
                                 }
                             }
 
-                            if (connectionType == "L2TP Tunnel") {
-                                OutlinedTextField(
-                                    value = l2tpSecret,
-                                    onValueChange = { l2tpSecret = it },
-                                    label = { Text("L2TP IPsec Secret (Optional)") },
-                                    modifier = Modifier
-                                        .fillMaxWidth()
-                                        .testTag("profile_l2tp_secret_input"),
-                                    singleLine = true,
-                                    visualTransformation = PasswordVisualTransformation(),
-                                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password)
-                                )
-                            }
+                            OutlinedTextField(
+                                value = l2tpSecret,
+                                onValueChange = { l2tpSecret = it },
+                                label = { Text("L2TP IPsec Secret (Optional)") },
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .testTag("profile_l2tp_secret_input"),
+                                singleLine = true,
+                                visualTransformation = PasswordVisualTransformation(),
+                                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password)
+                            )
 
                             Row(
                                 modifier = Modifier
@@ -298,7 +287,7 @@ fun DevicesScreen(
                                     username = ""
                                     isDemo = false
                                     routerModel = "hAP Lite (v6)"
-                                    connectionType = "SSH"
+                                    connectionType = "L2TP Tunnel"
                                     l2tpSecret = ""
                                     editingProfileId = null
                                     showAddForm = false
