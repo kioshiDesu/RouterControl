@@ -1,0 +1,6 @@
+{
+  "name": "RouterControl",
+  "description": "Remote manager for MikroTik routers allowing administrators to quickly view resources, interface statuses, IP configuration, and run custom RouterOS commands securely via SSH.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

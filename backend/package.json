@@ -1,0 +1,19 @@
+{
+  "name": "routercontrol-backend",
+  "version": "1.0.0",
+  "description": "Embedded Local Node.js Backend for MikroTik Remote Manager",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "ssh2": "^1.14.0",
+    "node-routeros": "^2.0.2",
+    "dotenv": "^16.3.1",
+    "pino": "^8.16.2",
+    "pino-pretty": "^10.2.3"
+  },
+  "private": true
+}
